@@ -1,6 +1,13 @@
 BPMN
 ====
 
+# Allmänt
+
+## Process instance
+En körning av en process. En process är inte klar förrän alla tokens konsumerats.
+
+# Symboler
+
 ## Activities
 
 Namnges: verb + objekt (ex. ändra status)
@@ -26,6 +33,41 @@ Exempel
 
 ### Attached events
 Man kan koppla på ett (catching) event på en activity (task). Man ritar då en cirkel som överlappar activityn (i nederkanten). Om eventet inträffar medan tasken (activityn) pågår, så flyttar tokenet till event-pathen och kör vidare där. Ett attached event kan vara non-interupting också (dashed circle) varpå tokenet klonas om eventet inträffar. Inträffar eventet efter det att tasken har körts klart, så händer inget (det gäller alla attached events).
+
+### Message Events
+Konvention: Använd tasks för att skicka meddelanden och events för att fånga meddelanden. Detta för att undvika upprepning i modellen (ett skicka task + ett throwing event som indikerar att man skickat något - då skickar man ju två gånger) och det blir otydligt i modellen om man utan att ha modelerat ett task för det implicerar att man skickat ett meddelande via endast ett intermediate throwing event.
+
+Modelleras med ett brev i eventcirkeln.
+
+### Timer events
+Självförklarande. Kan bara existera som catching start eller intermediate events. Kan vara interrupting eller non interrupting.
+
+Modelleras med en klocka i eventcirkeln.
+
+### Error events
+Kan bara modelleras som ett attached intermediate event och end-event (throw error event i subprocess och catch som intermediate event på huvudprocess).
+
+Modelleras med en blixt i eventcirkeln.
+
+### Conditional
+Alltid catching. Kan användas på start, attached och intermediate. Man beskriver, på eventet, ett kriterium för catching eventet.
+
+Modelleras med en lista i eventcirkeln.
+
+### Signal
+Funkar som meddelande men är broadcast istället för meddelande till enskild mottagare.
+
+Modelleras med en triangel i eventcirkeln.
+
+### Terminate event
+Konsumerar omedelbart alla tokens i processen. Kan bara förekomma som end-event.
+
+Modelleras med en fylld eventcirkel.
+
+### Link event
+Används för att dela upp långa pathsekvenser (t.ex. om man behöver flera sidor för att rita upp sin process). Kan bara existera som intermediate events.
+
+Modelleras med en pil i eventcirkeln.
 
 ## Gateway
 
