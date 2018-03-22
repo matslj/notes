@@ -41,11 +41,15 @@ När ett token kommer till en subprocess, så händer följande:
 - Nytt subprocess token skapas.
 - När subprocess token har nåt ett end event, så konsumeras det och parent token går vidare (är klar med tasken).
 
+Börjar med ett start none event. (en subprocess kan bara startas av sin parent process)
+
 En subprocess kan vara:
 - embedded. Har tillgång till samma data som huvudprocessen. Får inte användas av andra processer. Får inte ha några egna lanes. Får bara ha ett start none event.
 - global. Kan återanvändas. Delar bara data med huvudprocessen om så explicit har deklarerats. Är helt fristående som diagram räknat.
 
 En subprocess (parent activitysymbolen) kan ha attached events. Om dessa events är av typen message, timer eller conditional, så avbryts alltid subprocessen. Om eventet istället är av typen error, cancel eller escalation, så har de en throwing motsvarighet i subprocessen och då rapporteras dessa event till huvudprocessen.
+
+Namnges: objekt verb i normaliserad form.
 
 Modelleras med ett plus-tecken i mitten längs bottenkanten av activityn. 
 
